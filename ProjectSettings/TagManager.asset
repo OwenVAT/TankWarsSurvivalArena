@@ -12,10 +12,10 @@ TagManager:
   - Water
   - UI
   - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
+  - Projectile
+  - Obstacle
   - 
   - 
   - 
@@ -59,7 +59,7 @@ TagManager:
   - name: Items
     uniqueID: 3014241259
     locked: 0
-  - name: Bullets
+  - name: Projectiles
     uniqueID: 4156964925
     locked: 0
   - name: SpecialEffects

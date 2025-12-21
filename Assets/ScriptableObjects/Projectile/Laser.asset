@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51563119f37421a48bf06b95930f7caf, type: 3}
+  m_Name: Laser
+  m_EditorClassIdentifier: 
+  projectileType: 104
+  projectileName: Laser
+  projectilePrefab: {fileID: 1193256864851754589, guid: f932ac55d3d7ac446a11668e0ac0f5f7, type: 3}
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 512
+  damage: 12
+  speed: 10
+  lifeTime: 1
+  cooldown: 0.2
+  maxDistance: 10
+  curve: 0
+  canPierce: 0
+  maxTargetHits: 1
+  isAOE: 0
+  aoeRadius: 2
+  damageSelf: 0
+  hitEffectPrefab: {fileID: 0}
+  explosionEffectPrefab: {fileID: 0}
