@@ -17,4 +17,8 @@ public class Utilities
     {
         return (1 - t) * (1 - t) * start + 2f * (1 - t) * t * control + t * t * end;
     }
+    public static Vector2 DiagonalFly(Vector2 start, Vector2 vel, Vector2 gravity, float t )
+    {
+        return start + vel*t + 0.5f *t*t*gravity ;
+    }
 }

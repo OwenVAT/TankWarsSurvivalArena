@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileType: 105
   projectileName: Rocket
-  projectilePrefab: {fileID: 1193256864851754589, guid: f932ac55d3d7ac446a11668e0ac0f5f7, type: 3}
+  projectilePrefab: {fileID: 4785167421581671658, guid: d7bbf94e7a22e624784d3fe87220fc1d, type: 3}
   hitMask:
     serializedVersion: 2
     m_Bits: 512
@@ -23,10 +23,10 @@ MonoBehaviour:
   lifeTime: 1
   cooldown: 0.2
   maxDistance: 10
-  curve: 0
+  curve: 1
   canPierce: 0
   maxTargetHits: 1
-  isAOE: 0
+  isAOE: 1
   aoeRadius: 2
   damageSelf: 0
   hitEffectPrefab: {fileID: 0}

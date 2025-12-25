@@ -17,8 +17,8 @@ public class TankConfig : ScriptableObject
 
     [Header("Weapon")]
     public ProjectileType defaultProjectile = ProjectileType.LightShell;
-    [Tooltip("Fire rate per second")]
-    public int fireRate = 2;
+    [Tooltip("Time before next fire")]
+    public float cooldown = 0.2f;
 
     [Header("Visual")]
     public GameObject TankPrefab;

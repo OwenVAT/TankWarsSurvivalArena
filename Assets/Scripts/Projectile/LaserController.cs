@@ -1,22 +1,16 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class LaserController : ProjectileController
 {
-    protected bool isFiring;
-    private int numTarget;
-    //Reset when get from pool
+    private int hitsLeft;
+    private HashSet<int> hitSet = new HashSet<int>();
+
     protected override void OnEnable()
     {
-        isFiring = false;
-        numTarget = config.maxTargetHits;
-        CancelInvoke();
-    }
-    protected override void Update()
-    {
-        base.Update();
+        base.OnEnable();
+        hitSet.Clear();
+        hitsLeft = config.maxTargetHits;
     }
 
     protected override void OnFire()
@@ -24,14 +18,30 @@ public class LaserController : ProjectileController
         lifeTime = config.lifeTime;
         ResetRigidbody(rb);
         rb.velocity = direction.normalized * config.speed;
+
         collide.enabled = true;
         collide.isTrigger = true;
+
         transform.up = direction.normalized;
     }
+
     protected override void OnHit(Collider2D other)
     {
+        int id = other.GetInstanceID();
+        if (hitSet.Contains(id)) return;
+        hitSet.Add(id);
 
         TryDamage(other, config.damage);
-        ReturnToPool();
+
+        if (config.canPierce)
+        {
+            hitsLeft--;
+            if (hitsLeft <= 0) 
+                ReturnToPool();
+        }
+        else
+        {
+            ReturnToPool();
+        }
     }
 }

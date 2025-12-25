@@ -24,8 +24,8 @@ MonoBehaviour:
   cooldown: 0.2
   maxDistance: 10
   curve: 0
-  canPierce: 0
-  maxTargetHits: 1
+  canPierce: 1
+  maxTargetHits: 3
   isAOE: 0
   aoeRadius: 2
   damageSelf: 0

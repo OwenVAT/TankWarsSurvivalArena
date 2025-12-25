@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class TankController : MonoBehaviour, IDamagable
@@ -17,141 +15,134 @@ public abstract class TankController : MonoBehaviour, IDamagable
     protected float currentHP;
     protected float currentArmor;
     protected float moveSpeed;
-    protected float rotateSpeed;
-    protected int fireRate;
-    [SerializeField]protected ProjectileType currentProjectile;
+    protected float cooldown;
 
-    [Header("WeaponType Prefabs")]
-    public GameObject bulletPrefab;
-    public GameObject laserPrefab;
-    public GameObject rocketPrefab;
-    
-    
-    protected Vector2 moveInput; // direction of move
-    protected Vector2 aimDirection; //direction of turret
+    [SerializeField] protected ProjectileType currentProjectile;
 
-    protected float lastFireTime = float.MinValue;
+    protected Vector2 moveInput;
+    protected Vector2 aimDirection;
+    protected float power; //ratio of range of handle to max range of handle 
+
+    protected float lastFireTime = -99f;
+    protected Vector2 start, dir, end;
 
     protected virtual void Awake()
     {
-        if (rb == null)
-        {
-            rb = GetComponent<Rigidbody2D>();
-        }
+        if (rb == null) rb = GetComponent<Rigidbody2D>();
     }
 
-    // Start is called before the first frame update
     protected virtual void Start()
     {
-        //khởi tạo stats
         if (baseConfig != null)
         {
             currentHP = baseConfig.maxHP;
             currentArmor = baseConfig.armor;
             moveSpeed = baseConfig.moveSpeed;
-            fireRate = baseConfig.fireRate;
+            cooldown = baseConfig.cooldown;
             currentProjectile = baseConfig.defaultProjectile;
         }
     }
 
-    //-------UPDATE & FIXEDUPDATE--------
-    // Update is called once per frame
     protected virtual void Update()
     {
         RotateTurret();
     }
+
     protected virtual void FixedUpdate()
     {
         Move();
     }
 
-    //-------Move Tank & Roate Turret-------
     public void SetMoveInput(Vector2 input)
     {
         moveInput = Vector2.ClampMagnitude(input, 1f);
     }
-
-    public void SetAimDirection(Vector2 aim)
+    public void SetAimDirection(Vector2 aim, out float powerToFire)
     {
         aimDirection = aim;
+        powerToFire = Mathf.Clamp01(aimDirection.magnitude);
     }
+
     protected void Move()
     {
-        //move tank hull base on moveInput
         rb.velocity = moveInput * moveSpeed;
-        //rotate the tank toward the mobeInput direction
-        if (moveInput.sqrMagnitude > 0)
+
+        if (moveInput.sqrMagnitude > 0f)
         {
-            float angle = Mathf.Atan2(moveInput.y, moveInput.x) * Mathf.Rad2Deg -90f;
-            //float angle = Mathf.LerpAngle(bodyTransform.eulerAngles.z, targetAngle, rotateSpeed * Time.fixedDeltaTime);
+            float angle = Mathf.Atan2(moveInput.y, moveInput.x) * Mathf.Rad2Deg - 90f;
             bodyTransform.rotation = Quaternion.Euler(0, 0, angle);
         }
     }
+
     protected void RotateTurret()
     {
-        Vector2 dir = aimDirection.magnitude > 0 ? aimDirection : moveInput;
-        if (dir.sqrMagnitude > 0)
+        Vector2 dir = aimDirection.sqrMagnitude > 0 ? aimDirection : moveInput;
+        if (dir.sqrMagnitude > 0f)
         {
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90f;
             turretTransform.rotation = Quaternion.Euler(0, 0, angle);
         }
     }
-    //--------Shoot---------
+
     public virtual void TryFire()
     {
-        if (Time.time < (lastFireTime + 1f / fireRate))
-        {
-            return;
-        }
-        Fire();
+        var pCfg = ProjectileDatabase.Instance != null
+            ? ProjectileDatabase.Instance.GetProjectileConfig(currentProjectile)
+            : null;
+
+        if (Time.time < lastFireTime + cooldown) return;
+
+        FireProjectile(pCfg);
         lastFireTime = Time.time;
     }
-    protected virtual void Fire()
+
+    protected virtual void FireProjectile(ProjectileConfig pCfg)
     {
-        GameObject prefabToSpawn = null;
-        switch (currentProjectile)
+        GameObject projObj = PoolManager.Instance.GetProjectile(currentProjectile);
+        if (projObj == null) return;
+
+        projObj.transform.position = firePoint.position;
+        projObj.transform.rotation = firePoint.rotation;
+
+        ProjectileController proj = projObj.GetComponent<ProjectileController>();
+        if (proj == null)
         {
-            case ProjectileType.LightShell:
-                prefabToSpawn = bulletPrefab;
-                break;
-            case ProjectileType.Laser:
-                prefabToSpawn = laserPrefab;
-                break;
-            case ProjectileType.Rocket:
-                prefabToSpawn = rocketPrefab;
-                break;
-        }
-        GameObject bullet = Instantiate(prefabToSpawn, firePoint.position, firePoint.rotation);
-        var f = bullet.GetComponent<ProjectileController>();
-       // f.Fire(firePoint.position,firePoint.transform.up,)
+            projObj.SetActive(false);
+            return;
+        }        
+        proj.Fire(start, dir, end, gameObject.layer, pCfg.hitMask, pCfg.lifeTime, (go) => PoolManager.Instance.ReturnProjectile(currentProjectile, go));
     }
-    //-------------Damge & Heal--------
+
+    protected void SetUpFire(ProjectileConfig pCfg, out Vector2 start, out Vector2 dir, out Vector2 end, float powerToFire)
+    {
+        start = firePoint.position;
+        dir = firePoint.up;
+        end = start + dir.normalized * pCfg.maxDistance * powerToFire;
+    }
+
     public virtual void TakeDamage(float amount)
     {
         float damageAfterArmor = Mathf.Max(amount - currentArmor, 1f);
         currentHP -= damageAfterArmor;
         OnHit();
         if (currentHP <= 0)
-        {
             Die();
-        }
     }
+
     public virtual void Heal(float amount)
     {
         currentHP += amount;
-    }
+    } 
     public virtual void AddAmor(float amount)
     {
         currentArmor += amount;
-    }
+    } 
     public virtual void ChangeWeapon(ProjectileType newWeapon)
     {
         currentProjectile = newWeapon;
     }
-
-    //----------Effect----------
     protected virtual void OnHit() { }
-    protected virtual void Die() 
+    protected virtual void Die()
     {
         Destroy(gameObject);
     }

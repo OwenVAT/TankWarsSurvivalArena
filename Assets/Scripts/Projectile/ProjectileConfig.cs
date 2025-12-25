@@ -21,6 +21,7 @@ public class ProjectileConfig : ScriptableObject
     [Header("Properties")]
     public float maxDistance = 10f;
     public bool curve = false;
+    public float arcHeight = 2f;
     public bool canPierce = false;
     public int maxTargetHits = 1;
     public bool isAOE = false;

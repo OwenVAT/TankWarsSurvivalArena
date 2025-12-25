@@ -6,8 +6,7 @@ public class TrajectoryRenderer : MonoBehaviour
 {
     [SerializeField] private LineRenderer lineRenderer;
     [SerializeField] private int numPoint = 20;
-    [SerializeField] private float deltaTime = 0.02f;
-    [SerializeField] private float arcHeight = 2f;
+    [SerializeField] private ProjectileConfig rocketConfig;
 
     private void Awake()
     {
@@ -29,7 +28,7 @@ public class TrajectoryRenderer : MonoBehaviour
     {
         lineRenderer.enabled = true;
         lineRenderer.positionCount = numPoint;
-        Vector2 control = (end - start) * 0.5f + arcHeight * Vector2.up;//Utilities.GetPerpendicularUp(start, end);
+        Vector2 control = (end + start) * 0.5f + rocketConfig.arcHeight * Utilities.GetPerpendicularUp(start, end); ;
         for (int i = 0; i < numPoint; i++)
         {
             float t = numPoint == 1 ? 1f : i / ((float)numPoint - 1);

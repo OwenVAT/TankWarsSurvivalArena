@@ -12,23 +12,31 @@ public class PoolManager : MonoBehaviour
     [Header("Optional Parent")]
     [SerializeField] private Transform poolRoot;
 
-    private Dictionary<ProjectileType, ObjectPool> projectilePools = new();
+    private Dictionary<ProjectileType, ObjectPool> projectilePools = new Dictionary<ProjectileType, ObjectPool>();
 
     private void Awake()
     {
-        if (Instance != null) { Destroy(gameObject); return; }
+        if (Instance != null) 
+        { 
+            Destroy(gameObject); 
+            return; 
+        }
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        if (poolRoot == null) poolRoot = transform;
+        if (poolRoot == null) 
+            poolRoot = transform;
 
         InitProjectilePools();
     }
 
     private void InitProjectilePools()
     {
-        var db = ProjectileDatabase.Instance;
-        if (db == null) { Debug.LogError("ProjectileDatabase not found!"); return; }
+        ProjectileDatabase db = ProjectileDatabase.Instance;
+        if (db == null) 
+        { 
+            return; 
+        }
 
         foreach (var cfg in db.GetAll())
         {
@@ -54,11 +62,9 @@ public class PoolManager : MonoBehaviour
     {
         if (!projectilePools.TryGetValue(type, out var pool))
         {
-            // fallback: tạo pool runtime nếu thiếu
-            var cfg = ProjectileDatabase.Instance.GetProjectileConfig(type);
+            ProjectileConfig cfg = ProjectileDatabase.Instance.GetProjectileConfig(type);
             if (cfg == null || cfg.projectilePrefab == null)
             {
-                Debug.LogError($"No projectile config/prefab for {type}");
                 return null;
             }
             CreateProjectilePool(type, cfg.projectilePrefab, defaultPoolSize);
@@ -71,7 +77,7 @@ public class PoolManager : MonoBehaviour
     {
         if (obj == null) return;
 
-        if (projectilePools.TryGetValue(type, out var pool))
+        if (projectilePools.TryGetValue(type, out ObjectPool pool))
             pool.ReturnToPool(obj);
         else
             obj.SetActive(false);

@@ -1,20 +1,19 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class ProjectileDatabase : MonoBehaviour
 {
-    public ProjectileDatabase Instance;
+    public static ProjectileDatabase Instance;
+
     [SerializeField] private List<ProjectileConfig> listProjectile;
-    Dictionary<ProjectileType, ProjectileConfig> dictProjectile;
+    private Dictionary<ProjectileType, ProjectileConfig> dictProjectile;
+
     private void Awake()
     {
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
+        if (Instance != null) 
+        { 
+            Destroy(gameObject); 
+            return; 
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
@@ -26,19 +25,18 @@ public class ProjectileDatabase : MonoBehaviour
         dictProjectile = new Dictionary<ProjectileType, ProjectileConfig>();
         foreach (ProjectileConfig config in listProjectile)
         {
-            if (!dictProjectile.ContainsKey(config.projectileType))
-            {
-                dictProjectile.Add(config.projectileType, config);
-            }
+            if (config == null) 
+                continue;
+            dictProjectile[config.projectileType] = config;
         }
     }
-    private ProjectileConfig GetProjectileConfig(ProjectileType projectileType)
+
+    public ProjectileConfig GetProjectileConfig(ProjectileType projectileType)
     {
-        if (dictProjectile.ContainsKey(projectileType))
-        {
-            return dictProjectile[projectileType];
-        }
-            return null;
-        
+        if (dictProjectile != null && dictProjectile.TryGetValue(projectileType, out ProjectileConfig cfg))
+            return cfg;
+        return null;
     }
+
+    public List<ProjectileConfig> GetAll() => listProjectile;
 }

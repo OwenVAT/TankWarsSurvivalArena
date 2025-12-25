@@ -33,12 +33,10 @@ public class TankDatabase : MonoBehaviour
             }
         }
     }
-    private TankConfig GetTankConfig(TankType tankType)
+    public TankConfig GetTankConfig(TankType tankType)
     {
-        if (tankConfigDict.TryGetValue(tankType, out TankConfig tankConfig)) 
-        {
+        if (tankConfigDict.TryGetValue(tankType, out TankConfig tankConfig))
             return tankConfig;
-        }
         return null;
     }
 }

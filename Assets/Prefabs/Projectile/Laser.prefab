@@ -161,10 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc1b61c0b13f30b4bb917e142eeb3c08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  config: {fileID: 0}
+  config: {fileID: 11400000, guid: 6e1f647bee887c54c905fd0d40c5d65a, type: 2}
   rb: {fileID: 7520096146191919430}
   collide: {fileID: 2099154770625277423}
   lineRenderer: {fileID: 0}
-  startPosition: {x: 0, y: 0}
-  endPosition: {x: 0, y: 0}
-  direction: {x: 0, y: 0}

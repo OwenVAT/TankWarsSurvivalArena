@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40b94db8104c7f940b5b6212ef6c3c9c, type: 3}
   m_Name: BaseTankStats
   m_EditorClassIdentifier: 
+  tankType: 0
+  tankName: 
   maxHP: 100
   armor: 10
   moveSpeed: 3
-  rotationSpeed: 180
-  defaultWeapon: 0
+  defaultProjectile: 101
   fireRate: 2
+  TankPrefab: {fileID: 0}

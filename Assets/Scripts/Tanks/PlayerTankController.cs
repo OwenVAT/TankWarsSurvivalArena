@@ -1,45 +1,98 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Windows;
 
 public class PlayerTankController : TankController
 {
     [Header("Input Setting")]
-    public Joystick moveJoystick;
-    public Joystick aimJoystick;
     public bool autoAimWithoutAimJoystick = true;
-    //public Button fireButton;
+    bool isFire = false;
+    float lifeTimer = 0;
+    float powerFireRocket;
+    bool rocketButtonPressed = false;
 
-    // Start is called before the first frame update
-    //void Start()
-    //{
-        
-    //}
+
+
+    //    [SerializeField] private Joystick rocketJoystick;
+    [SerializeField] private TrajectoryRenderer trajectory;
+    [SerializeField] private ProjectileConfig rocketConfig;
+
+    bool isAiming;
+    ProjectileType lastProjectile;
+
 
     // Update is called once per frame
     protected override void Update()
     {
         base.Update();
-        HandleMobileInput();
+        SetMoveInput(GetInputJoystick.Instance.MoveInput());
+        SetAimDirection(GetInputJoystick.Instance.AimInput(), out power);
+
+        if (rocketButtonPressed && (currentProjectile != ProjectileType.Rocket))
+        {
+            lastProjectile = currentProjectile;
+            ChangeWeapon(ProjectileType.Rocket);
+        }
+        if (rocketButtonPressed)
+        {
+            SetUpFire(rocketConfig,out start, out dir, out  end,power);
+            trajectory.DrawCurve(start, end);
+            isAiming= true;
+        }
+        else
+        {
+            if (isAiming)
+            {
+                // fire when put joystick up
+                trajectory.gameObject.GetComponent<LineRenderer>().enabled = false;
+                isFire=true;
+                lifeTimer = 0;
+            }
+            isAiming = false;
+        }
+
+
+        if ((isFire)&&(lifeTimer<rocketConfig.lifeTime)) 
+        { 
+            lifeTimer+= Time.deltaTime;
+            TryFire(); 
+        }
+        if (lifeTimer >= rocketConfig.lifeTime) 
+        { 
+            isFire = false;
+            lifeTimer = 0;
+            return;
+        }
+    }
+    public void OnFireButtonPressed()
+    {
+        if (currentProjectile == ProjectileType.Rocket)
+        {
+            currentProjectile = lastProjectile;
+        }
+        TryFire();
+    }
+    public void OnFireRocketButtonUp(Vector2 lastVector)
+    {
+        powerFireRocket = Mathf.Clamp01(lastVector.magnitude);
+        SetUpFire(rocketConfig, out start, out dir, out end, powerFireRocket);
+        isFire = true;
+        rocketButtonPressed = false;
+    }
+    public void OnFireRocketButtonUp_NoArg()
+    {
+        Vector2 lastVector = GetInputJoystick.Instance.AimInput();
+        OnFireRocketButtonUp(lastVector);
     }
 
-    private void HandleMobileInput()
+
+    public void OnFireRocketButtonPressed()
     {
-            Vector2 move = new Vector2(moveJoystick.Horizontal, moveJoystick.Vertical);
-            SetMoveInput(move);
-        //}
-        Vector2 aimInput = Vector2.zero;
-        if (aimJoystick != null)
-        {
-            aimInput = new Vector2(aimJoystick.Horizontal, aimJoystick.Vertical);
-        }
-        if (autoAimWithoutAimJoystick && aimInput.sqrMagnitude==0) 
-        {
-            aimInput = move;
-        }
-        SetAimDirection(aimInput);
+        rocketButtonPressed= true;
     }
-   
+
+
 }
