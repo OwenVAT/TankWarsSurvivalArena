@@ -4,55 +4,63 @@ using UnityEngine;
 public abstract class ProjectileController : MonoBehaviour
 {
     [SerializeField] protected ProjectileConfig config;
-
-    [Header("Component")]
     [SerializeField] protected Rigidbody2D rb;
     [SerializeField] protected Collider2D collide;
-    [SerializeField] protected LineRenderer lineRenderer;
 
     protected Vector2 startPosition;
-    protected Vector2 endPosition;
     protected Vector2 direction;
+    protected Vector2 endPosition;
+
+    protected Vector2 initialVelocity;
+    protected Vector2 acceleration;
 
     protected int ownerLayer;
     protected LayerMask hitMask;
 
-    Action<GameObject> returnToPool;
-
     protected float lifeTimer;
     protected float lifeTime;
-    protected float distanceFly;
 
     protected bool isInitialized;
     protected bool isReturning;
 
+    private Action<GameObject> returnToPool;
+
     protected virtual void OnEnable()
     {
-        CancelInvoke();
-        isReturning = false;
         isInitialized = false;
-
+        isReturning = false;
         lifeTimer = 0f;
-        distanceFly = 0f;
 
-        if (rb != null) ResetRigidbody(rb);
-        if (lineRenderer != null) HideLineRenderer(lineRenderer);
-
-        if (collide != null)
+        if (rb != null)
         {
-            collide.enabled = false;
+            rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+            rb.gravityScale = 0f;
         }
+        if (collide != null) collide.enabled = false;
     }
 
-    public void Fire(Vector2 startPoint, Vector2 direction, Vector2 endPoint, int shooterLayer, LayerMask mask, float lifeTime, Action<GameObject> returnToPool)
+    public void Fire(
+        Vector2 startPoint,
+        Vector2 dir,
+        Vector2 endPoint,
+        int shooterLayer,
+        LayerMask mask,
+        float lifeTime,
+        Action<GameObject> returnToPool,
+        Vector2 initialVelocity,
+        Vector2 acceleration
+    )
     {
         this.startPosition = startPoint;
-        this.direction = direction;
+        this.direction = dir;
         this.endPosition = endPoint;
         this.ownerLayer = shooterLayer;
         this.hitMask = mask;
         this.lifeTime = lifeTime;
         this.returnToPool = returnToPool;
+        this.initialVelocity = initialVelocity;
+        this.acceleration = acceleration;
 
         isInitialized = true;
         isReturning = false;
@@ -63,11 +71,8 @@ public abstract class ProjectileController : MonoBehaviour
     protected virtual void Update()
     {
         if (!isInitialized || isReturning) return;
-
         lifeTimer += Time.deltaTime;
-        distanceFly += config.speed * Time.deltaTime;
-
-        if (lifeTimer >= lifeTime || distanceFly >= config.maxDistance)
+        if (lifeTimer >= lifeTime)
         {
             OnTimeout();
             ReturnToPool();
@@ -79,7 +84,6 @@ public abstract class ProjectileController : MonoBehaviour
         if (!isInitialized || isReturning) return;
         if (other.gameObject.layer == ownerLayer) return;
         if (((1 << other.gameObject.layer) & hitMask.value) == 0) return;
-
         OnHit(other);
     }
 
@@ -89,22 +93,16 @@ public abstract class ProjectileController : MonoBehaviour
         isReturning = true;
         isInitialized = false;
 
-        CancelInvoke();
-        OnBeforeReturn();
+        if (collide != null) collide.enabled = false;
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+        }
 
         if (returnToPool != null) returnToPool(gameObject);
         else gameObject.SetActive(false);
     }
-
-    protected virtual void OnBeforeReturn()
-    {
-        if (rb != null) ResetRigidbody(rb);
-        if (collide != null) collide.enabled = false;
-    }
-
-    protected virtual void OnFire() { }
-    protected virtual void OnHit(Collider2D other) { }
-    protected virtual void OnTimeout() { }
 
     protected bool TryDamage(Collider2D target, float damage)
     {
@@ -114,26 +112,7 @@ public abstract class ProjectileController : MonoBehaviour
         return true;
     }
 
-    void HideLineRenderer(LineRenderer lr)
-    {
-        lr.enabled = false;
-        lr.positionCount = 0;
-    }
-
-    public void ResetRigidbody(Rigidbody2D r)
-    {
-        r.velocity = Vector2.zero;
-        r.angularVelocity = 0;
-    }
-}
-
-
-
-public interface IDamagable
-{
-    void TakeDamage(float amount);
-}
-public interface IKnockBackable
-{
-    void ApplyKnockBack(Vector2 direction, float force);
+    protected virtual void OnFire() { }
+    protected virtual void OnHit(Collider2D other) { }
+    protected virtual void OnTimeout() { }
 }

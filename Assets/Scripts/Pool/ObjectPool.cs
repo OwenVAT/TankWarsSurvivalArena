@@ -4,34 +4,27 @@ using UnityEngine;
 public class ObjectPool : MonoBehaviour
 {
     private readonly Queue<GameObject> pool = new Queue<GameObject>();
-
-    [SerializeField] private GameObject prefab;
-    [SerializeField] private int poolSize = 10;
-
+    private GameObject prefab;
     private Transform parentTransform;
 
-    public void Initialize(GameObject prefab, int poolSize, Transform parentTransform = null)
+    public void Initialize(GameObject prefab, int size, Transform parent)
     {
         this.prefab = prefab;
-        this.poolSize = Mathf.Max(1, poolSize);
-        this.parentTransform = parentTransform != null ? parentTransform : transform;
-
+        this.parentTransform = parent != null ? parent : transform;
         pool.Clear();
-        for (int i = 0; i < this.poolSize; i++)
-            CreateNewObject();
+        for (int i = 0; i < Mathf.Max(1, size); i++) CreateNew();
     }
 
-    private void CreateNewObject()
+    private void CreateNew()
     {
-        GameObject obj = Instantiate(prefab, parentTransform);
+        GameObject obj = GameObject.Instantiate(prefab, parentTransform);
         obj.SetActive(false);
         pool.Enqueue(obj);
     }
 
     public GameObject GetObject()
     {
-        if (pool.Count == 0) CreateNewObject();
-
+        if (pool.Count == 0) CreateNew();
         GameObject obj = pool.Dequeue();
         obj.transform.SetParent(parentTransform);
         obj.SetActive(true);

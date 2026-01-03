@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-[CreateAssetMenu(fileName ="TankStats",menuName ="Tank/TankStats",order = 0)]
+[CreateAssetMenu(fileName = "TankConfig", menuName = "Tank/TankConfig", order = 0)]
 public class TankConfig : ScriptableObject
 {
     [Header("Basic Info")]
@@ -11,24 +9,17 @@ public class TankConfig : ScriptableObject
 
     [Header("Stats")]
     public float maxHP = 100f;
-    public float armor = 10f;
+    public float armor = 1f;
     public float moveSpeed = 3f;
-  
 
-    [Header("Weapon")]
-    public ProjectileType defaultProjectile = ProjectileType.LightShell;
-    [Tooltip("Time before next fire")]
-    public float cooldown = 0.2f;
+    [Header("Weapons")]
+    [Tooltip("Primary weapon: Shell or Laser")]
+    public ProjectileType primaryWeapon = ProjectileType.LightShell;
+    public ProjectileType rocketWeapon = ProjectileType.Rocket;
 
     [Header("Visual")]
-    public GameObject TankPrefab;
+    public GameObject tankPrefab;
 }
 
-public enum TankType
-{
-    Tank_Red = 001,
-    Tank_Green, 
-    Tank_Blue,
-    Tank_Orange
-}
+
 

@@ -1,98 +1,83 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.Windows;
+﻿using UnityEngine;
 
+[RequireComponent(typeof(TankWeaponSystem))]
 public class PlayerTankController : TankController
 {
-    [Header("Input Setting")]
-    public bool autoAimWithoutAimJoystick = true;
-    bool isFire = false;
-    float lifeTimer = 0;
-    float powerFireRocket;
-    bool rocketButtonPressed = false;
-
-
-
-    //    [SerializeField] private Joystick rocketJoystick;
+    [Header("Rocket Aim")]
+    [SerializeField] private JoystickHandleButton aimHandleButton;
     [SerializeField] private TrajectoryRenderer trajectory;
     [SerializeField] private ProjectileConfig rocketConfig;
+    [SerializeField] private float rocketGravity = 10f;
 
-    bool isAiming;
-    ProjectileType lastProjectile;
+    private TankWeaponSystem weapon;
+    private bool aimingRocket;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        weapon = GetComponent<TankWeaponSystem>();
+    }
 
-    // Update is called once per frame
+    protected override void Start()
+    {
+        base.Start();
+
+        if (aimHandleButton != null)
+        {
+            aimHandleButton.OnHandleDown.AddListener(IsAiming);
+            aimHandleButton.OnHandleUp.AddListener(OnRocketHandleUp);
+        }
+    }
+
     protected override void Update()
     {
+        if (!isDead)
+        {
+            SetMoveInput(GetInputJoystick.Instance.MoveInput());
+            SetAimDirection(GetInputJoystick.Instance.AimInput());
+        }
+
         base.Update();
-        SetMoveInput(GetInputJoystick.Instance.MoveInput());
-        SetAimDirection(GetInputJoystick.Instance.AimInput(), out power);
 
-        if (rocketButtonPressed && (currentProjectile != ProjectileType.Rocket))
+        if (!isDead && aimingRocket)
         {
-            lastProjectile = currentProjectile;
-            ChangeWeapon(ProjectileType.Rocket);
-        }
-        if (rocketButtonPressed)
-        {
-            SetUpFire(rocketConfig,out start, out dir, out  end,power);
-            trajectory.DrawCurve(start, end);
-            isAiming= true;
-        }
-        else
-        {
-            if (isAiming)
+            Vector2 aim = GetInputJoystick.Instance.AimInput();
+            float p = Mathf.Clamp01(aim.magnitude);
+            if (p > 0.02f)
             {
-                // fire when put joystick up
-                trajectory.gameObject.GetComponent<LineRenderer>().enabled = false;
-                isFire=true;
-                lifeTimer = 0;
+                Vector2 start = firePoint.position;
+                Vector2 v0 = aim.normalized * rocketConfig.speed * p;
+                Vector2 a = Vector2.down * rocketGravity;
+                trajectory.DrawCurve(start, v0, a, rocketConfig.lifeTime, Time.deltaTime);
             }
-            isAiming = false;
-        }
-
-
-        if ((isFire)&&(lifeTimer<rocketConfig.lifeTime)) 
-        { 
-            lifeTimer+= Time.deltaTime;
-            TryFire(); 
-        }
-        if (lifeTimer >= rocketConfig.lifeTime) 
-        { 
-            isFire = false;
-            lifeTimer = 0;
-            return;
         }
     }
+
     public void OnFireButtonPressed()
     {
-        if (currentProjectile == ProjectileType.Rocket)
-        {
-            currentProjectile = lastProjectile;
-        }
-        TryFire();
+        if (isDead) return;
+        Vector2 dir = aimDirection.sqrMagnitude > 0.0001f ? aimDirection : (Vector2)turretTransform.up;
+        weapon.FirePrimary(dir);
+        shootAnimator.SetTrigger(shootAnim_Param);
+
     }
-    public void OnFireRocketButtonUp(Vector2 lastVector)
+
+    private void OnRocketHandleUp()
     {
-        powerFireRocket = Mathf.Clamp01(lastVector.magnitude);
-        SetUpFire(rocketConfig, out start, out dir, out end, powerFireRocket);
-        isFire = true;
-        rocketButtonPressed = false;
+        if (isDead) return;
+
+        aimingRocket = false;
+        if (trajectory != null) trajectory.Hide();
+
+        Vector2 aim = GetInputJoystick.Instance.AimInput();
+        float p = Mathf.Clamp01(aim.magnitude);
+        if (p <= 0.05f) 
+            return;
+
+        weapon.FireRocket(aim, p);
     }
-    public void OnFireRocketButtonUp_NoArg()
+    private void IsAiming()
     {
-        Vector2 lastVector = GetInputJoystick.Instance.AimInput();
-        OnFireRocketButtonUp(lastVector);
+        aimingRocket = true;
     }
-
-
-    public void OnFireRocketButtonPressed()
-    {
-        rocketButtonPressed= true;
-    }
-
-
 }

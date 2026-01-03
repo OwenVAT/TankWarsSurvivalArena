@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,12 +13,19 @@ public class Utilities
             return new Vector2(p.y, -p.x).normalized;
         }
     }
-    public static Vector2 QuadraticBezier(Vector2 start, Vector2 control, Vector2 end, float t)
+    public static float GetAngle(Vector2 vector)
     {
-        return (1 - t) * (1 - t) * start + 2f * (1 - t) * t * control + t * t * end;
+        return Mathf.Atan2(vector.y, vector.x);
     }
-    public static Vector2 DiagonalFly(Vector2 start, Vector2 vel, Vector2 gravity, float t )
+    public static Vector2 GetPosDiagonalShoot(Vector2 startPos, Vector2 velocity, Vector2 acceleration, float time)
     {
-        return start + vel*t + 0.5f *t*t*gravity ;
+        return startPos + velocity * time + 0.5f * acceleration * time * time;
     }
+    public static Vector2 GetVelocityDiagonalShoot(Vector2 velocity, Vector2 acceleration, float time)
+    {
+        return velocity + acceleration * time;
+    }
+    
+
+
 }

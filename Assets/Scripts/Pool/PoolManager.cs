@@ -1,15 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class PoolManager : MonoBehaviour
 {
     public static PoolManager Instance;
 
-    [Header("Default Pool Size")]
-    [SerializeField] private int defaultPoolSize = 20;
-
-    [Header("Optional Parent")]
+    [SerializeField] private int poolSize = 100;
     [SerializeField] private Transform poolRoot;
 
     private Dictionary<ProjectileType, ObjectPool> projectilePools = new Dictionary<ProjectileType, ObjectPool>();
@@ -23,51 +19,36 @@ public class PoolManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-
         if (poolRoot == null) 
             poolRoot = transform;
-
         InitProjectilePools();
     }
 
     private void InitProjectilePools()
     {
-        ProjectileDatabase db = ProjectileDatabase.Instance;
-        if (db == null) 
-        { 
-            return; 
-        }
-
-        foreach (var cfg in db.GetAll())
+        foreach (ProjectileConfig cfg in ProjectileDatabase.Instance.GetListProjectile())
         {
-            if (cfg == null || cfg.projectilePrefab == null) continue;
-            CreateProjectilePool(cfg.projectileType, cfg.projectilePrefab, defaultPoolSize);
+            CreatePool(cfg.projectileType, cfg.projectilePrefab, poolSize);
         }
     }
 
-    private void CreateProjectilePool(ProjectileType type, GameObject prefab, int size)
+    private void CreatePool(ProjectileType type, GameObject prefab, int size)
     {
-        if (projectilePools.ContainsKey(type)) return;
-
-        var holder = new GameObject($"Pool_{type}");
+        if (projectilePools.ContainsKey(type)) 
+            return;
+        GameObject holder = new GameObject($"Pool_{type}");
         holder.transform.SetParent(poolRoot);
-
-        var pool = holder.AddComponent<ObjectPool>();
+        ObjectPool pool = holder.AddComponent<ObjectPool>();
         pool.Initialize(prefab, size, holder.transform);
-
         projectilePools[type] = pool;
     }
 
     public GameObject GetProjectile(ProjectileType type)
     {
-        if (!projectilePools.TryGetValue(type, out var pool))
+        if (!projectilePools.TryGetValue(type, out ObjectPool pool))
         {
             ProjectileConfig cfg = ProjectileDatabase.Instance.GetProjectileConfig(type);
-            if (cfg == null || cfg.projectilePrefab == null)
-            {
-                return null;
-            }
-            CreateProjectilePool(type, cfg.projectilePrefab, defaultPoolSize);
+            CreatePool(type, cfg.projectilePrefab, poolSize);
             pool = projectilePools[type];
         }
         return pool.GetObject();
@@ -75,11 +56,12 @@ public class PoolManager : MonoBehaviour
 
     public void ReturnProjectile(ProjectileType type, GameObject obj)
     {
-        if (obj == null) return;
-
         if (projectilePools.TryGetValue(type, out ObjectPool pool))
             pool.ReturnToPool(obj);
         else
+        {
             obj.SetActive(false);
+            Destroy(obj);
+        }
     }
 }
