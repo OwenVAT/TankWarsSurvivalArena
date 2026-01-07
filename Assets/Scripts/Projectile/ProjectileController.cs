@@ -23,7 +23,7 @@ public abstract class ProjectileController : MonoBehaviour
     protected bool isInitialized;
     protected bool isReturning;
 
-    private Action<GameObject> returnToPool;
+    protected Action<GameObject> returnToPool;
 
     protected virtual void OnEnable()
     {

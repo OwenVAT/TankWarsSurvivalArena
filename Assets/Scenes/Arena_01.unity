@@ -35690,7 +35690,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tank: {fileID: 357521748}
-  rocketGravity: 18
+  curveFactor: 0.25
+  startStraightLen: 1.2
+  endStraightLen: 0.8
+  verticalCurvePow: 2.5
+  trajectorySegments: 25
 --- !u!1 &365962088
 GameObject:
   m_ObjectHideFlags: 0
@@ -37312,7 +37316,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tank: {fileID: 699252274}
-  rocketGravity: 18
+  curveFactor: 0.25
+  startStraightLen: 1.2
+  endStraightLen: 0.8
+  verticalCurvePow: 2.5
+  trajectorySegments: 25
 --- !u!120 &699252272
 LineRenderer:
   serializedVersion: 2
@@ -38032,7 +38040,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tank: {fileID: 993166659}
-  rocketGravity: 18
+  curveFactor: 0.25
+  startStraightLen: 1.2
+  endStraightLen: 0.8
+  verticalCurvePow: 2.5
+  trajectorySegments: 25
 --- !u!120 &993166657
 LineRenderer:
   serializedVersion: 2
@@ -38304,6 +38316,7 @@ GameObject:
   - component: {fileID: 1065505460}
   - component: {fileID: 1065505461}
   - component: {fileID: 1065505462}
+  - component: {fileID: 1065505463}
   m_Layer: 0
   m_Name: PoolManager
   m_TagString: Untagged
@@ -38352,6 +38365,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77d6eaa9e8befcd49a9ec2bdda6107eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1065505463
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065505459}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312c16b443192984f8e8f51d5a674cda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  listProjectile:
+  - {fileID: 11400000, guid: 12af4bff129757b4fa64e0883833acb4, type: 2}
+  - {fileID: 11400000, guid: 8e492b5fd1a745f46b2289451a5da9b2, type: 2}
+  - {fileID: 11400000, guid: 4fbb996bccffc4749b34ef31b3e2269a, type: 2}
+  - {fileID: 11400000, guid: 6e1f647bee887c54c905fd0d40c5d65a, type: 2}
+  - {fileID: 11400000, guid: 15e8fd24cd65de640883ce2b5df71d51, type: 2}
 --- !u!1 &1199239958
 GameObject:
   m_ObjectHideFlags: 0
@@ -134380,7 +134411,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tank: {fileID: 2097770981}
-  rocketGravity: 18
+  curveFactor: 0.25
+  startStraightLen: 1.2
+  endStraightLen: 0.8
+  verticalCurvePow: 2.5
+  trajectorySegments: 25
 --- !u!120 &2097770979
 LineRenderer:
   serializedVersion: 2

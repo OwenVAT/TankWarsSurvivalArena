@@ -1,59 +1,86 @@
-﻿using Unity.Burst.Intrinsics;
-using UnityEditor;
+﻿using System;
 using UnityEngine;
 
 public class RocketController : ProjectileController
 {
     [SerializeField] private float knockBackForce = 6f;
 
-    private Vector2 p0, v0, a, Length;
-    private float timeRocket;
+    private Vector2 p0, p1, p2, p3;
+    private float flightTime;     // thời gian bay theo curve (để tới p3)
+    private float t01;            // tham số 0..1 trên Bezier
 
-    protected override void OnFire()
+    // NEW API: bắn rocket theo Bezier
+    public void FireBezier(
+        Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3,
+        int shooterLayer,
+        LayerMask mask,
+        float lifeTime,
+        Action<GameObject> returnToPool,
+        float flightTime
+    )
     {
-        transform.position = startPosition;
+        // reuse base Fire để set common fields + enable collider + life timer, etc.
+        // Nhưng base Fire yêu cầu start/dir/end/v0/a... ta không dùng.
+        // => Ta set trực tiếp các field cần và gọi OnFireBezier.
 
-        p0 = startPosition;
-        v0 = initialVelocity;
-        a = acceleration;
-        //base.endPosition= Mathf.Min()
+        this.startPosition = p0;
+        this.endPosition = p3;
+        this.ownerLayer = shooterLayer;
+        this.hitMask = mask;
+        this.lifeTime = lifeTime;
+        this.returnToPool = returnToPool;
 
-        Vector2 s = p0 + v0*
-        sbyte= s0 + v0t + 0.56f * a * timeRocket * timeRocket;
+        this.p0 = p0; this.p1 = p1; this.p2 = p2; this.p3 = p3;
+        this.flightTime = Mathf.Max(0.05f, flightTime);
 
+        isInitialized = true;
+        isReturning = false;
 
-        Length= endPosition - startPosition;
-        //Mathf.Cos(Utilities.GetAngle(v0));
-        timeRocket = Length.magnitude / (v0.magnitude * Mathf.Cos(Utilities.GetAngle(v0)));
+        OnFireBezier();
+    }
 
-        if (v0.sqrMagnitude > 0.0001f) transform.up = v0.normalized;
+    private void OnFireBezier()
+    {
+        transform.position = p0;
+
+        // hướng ban đầu theo tiếp tuyến
+        Vector2 vel0 = Utilities.BezierCubicDerivative(p0, p1, p2, p3, 0f);
+        if (vel0.sqrMagnitude > 0.0001f) transform.up = vel0.normalized;
 
         if (rb != null) rb.velocity = Vector2.zero;
         if (collide != null) { collide.enabled = true; collide.isTrigger = true; }
+
+        lifeTimer = 0f;
+        t01 = 0f;
     }
 
     protected override void Update()
     {
         if (!isInitialized || isReturning) return;
 
+        // timeout an toàn (tránh kẹt)
         lifeTimer += Time.deltaTime;
+        if (lifeTimer >= lifeTime)
+        {
+            Explode();
+            ReturnToPool();
+            return;
+        }
 
-        float t = lifeTimer;
-        Vector2 pos = Utilities.GetPosDiagonalShoot(p0, v0, a, t);
+        // tham số curve theo flightTime để tới đích đúng lúc
+        t01 += Time.deltaTime / flightTime;
+        float t = Mathf.Clamp01(t01);
+
+        Vector2 pos = Utilities.BezierCubic(p0, p1, p2, p3, t);
         transform.position = pos;
 
-        Vector2 vel = Utilities.GetVelocityDiagonalShoot(v0, a, t);
-        if (vel.sqrMagnitude > 0.0001f) 
-            transform.up = vel.normalized;
-        
-        //t = L/(v0*cos(alpha))
-        float alpha = Utilities.GetAngle(vel);
-        float power = Mathf.Clamp01(GetInputJoystick.Instance.AimInput().magnitude);
-        timeRocket = config.maxDistance / (v0.magnitude*Mathf.Cos(alpha));
+        Vector2 vel = Utilities.BezierCubicDerivative(p0, p1, p2, p3, t);
+        if (vel.sqrMagnitude > 0.0001f) transform.up = vel.normalized;
 
-        // “Chạm đất” top-down: hết lifeTime => rơi xuống đất => nổ
-        if (lifeTimer >= Mathf.Min(lifeTime,timeRocket))
+        // “Chạm đất” top-down = tới cuối curve (p3)
+        if (t >= 1f)
         {
+            transform.position = p3; // snap
             Explode();
             ReturnToPool();
         }
