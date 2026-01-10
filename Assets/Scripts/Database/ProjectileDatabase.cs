@@ -18,9 +18,14 @@ public class ProjectileDatabase : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
         dictProjectile = new Dictionary<ProjectileType, ProjectileConfig>();
-        foreach (ProjectileConfig cfg in listProjectile)
+        foreach (var item in Resources.LoadAll<ProjectileConfig>("/ScritableObjects/Projectile")) 
         {
-            dictProjectile[cfg.projectileType] = cfg;
+
+            if (!dictProjectile.ContainsKey(item.projectileType))
+            {
+                listProjectile.Add(item);
+                dictProjectile[item.projectileType] = item;
+            }
         }
     }
 

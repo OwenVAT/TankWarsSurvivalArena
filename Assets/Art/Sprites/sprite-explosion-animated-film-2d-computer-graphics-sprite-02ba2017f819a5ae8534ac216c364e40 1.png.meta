@@ -1,0 +1,586 @@
+fileFormatVersion: 2
+guid: 8bd534c3c22f4084da896a9859987d84
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_0
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 624
+        width: 80
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3359d9078e10e84486d8753e5e98a06
+      internalID: 1729759919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_1
+      rect:
+        serializedVersion: 2
+        x: 235
+        y: 605
+        width: 107
+        height: 138
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6554c68f808774741afe9a7c146d34e7
+      internalID: -1657345742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_2
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 592
+        width: 120
+        height: 161
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ee23a28958e1d648b26c608de3a97e0
+      internalID: -73233715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_3
+      rect:
+        serializedVersion: 2
+        x: 601
+        y: 582
+        width: 134
+        height: 171
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f7d68180f9fb4d49a0dc7cccb7658c0
+      internalID: -1798219159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_4
+      rect:
+        serializedVersion: 2
+        x: 789
+        y: 578
+        width: 153
+        height: 178
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9098ed722917f49419cb70a04f5c86d0
+      internalID: -775272746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_5
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 384
+        width: 163
+        height: 183
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79d00f6e17d252b4b9e71b056b02a1d5
+      internalID: 904147011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_6
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 384
+        width: 172
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abc554169ede2c148aec8309e2b3a688
+      internalID: 1797033253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_7
+      rect:
+        serializedVersion: 2
+        x: 392
+        y: 384
+        width: 179
+        height: 186
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c47adb21006115540957a2a18c5a9743
+      internalID: -650050492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_8
+      rect:
+        serializedVersion: 2
+        x: 581
+        y: 384
+        width: 184
+        height: 188
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 935cc93e87385024986b9ca81f76c666
+      internalID: 2095280705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_9
+      rect:
+        serializedVersion: 2
+        x: 771
+        y: 422
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77c6a9422217ab84c9877c9f9711781c
+      internalID: 1823725068
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_10
+      rect:
+        serializedVersion: 2
+        x: 778
+        y: 384
+        width: 181
+        height: 188
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39729edec532f844a90c935b4384e31d
+      internalID: -554591611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_11
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 229
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92cda7249bbde454caebc02d48ed680b
+      internalID: -1315029036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_12
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 192
+        width: 184
+        height: 189
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 626c7e294a99f8847904c2660096db7f
+      internalID: 1485303761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_13
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 228
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b0aa72b1919a2f4ca6f6fbb75ad6010
+      internalID: 1800668846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_14
+      rect:
+        serializedVersion: 2
+        x: 199
+        y: 192
+        width: 185
+        height: 189
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbdbc41e33b32944a840e2b3121f1719
+      internalID: -1528142557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_15
+      rect:
+        serializedVersion: 2
+        x: 390
+        y: 192
+        width: 186
+        height: 190
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e16668f813e11894296020cb6a1ba310
+      internalID: 298209443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_16
+      rect:
+        serializedVersion: 2
+        x: 581
+        y: 192
+        width: 187
+        height: 189
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a48a0ada3f985844826e2de7979d9fc
+      internalID: -1243552222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_17
+      rect:
+        serializedVersion: 2
+        x: 773
+        y: 204
+        width: 187
+        height: 176
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52edbeec48ea6c346a5ac3d120a72400
+      internalID: 605177945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_40
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 51
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69c3a0c30188134439c783c35cb86588
+      internalID: -2089760732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_0: 1729759919
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_1: -1657345742
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_10: -554591611
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_11: -1315029036
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_12: 1485303761
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_13: 1800668846
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_14: -1528142557
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_15: 298209443
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_16: -1243552222
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_17: 605177945
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_18: 12276910
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_19: -237663407
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_2: -73233715
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_20: -1672867646
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_21: -1876066032
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_22: 1560716814
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_23: -328231527
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_24: -1727960248
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_25: 2080438643
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_26: 1683719587
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_27: -444251851
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_28: 2138622699
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_29: 9919487
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_3: -1798219159
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_30: -869099611
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_31: -736548622
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_32: -1775831238
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_33: -303214039
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_34: 474988278
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_35: 1960777062
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_36: 1615910789
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_37: 1049630395
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_38: -1664210445
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_39: -1589754913
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_4: -775272746
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_40: -2089760732
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_41: -1400101977
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_42: -1526785649
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_43: -204511762
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_44: -879489630
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_45: -1237009820
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_46: 742046337
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_5: 904147011
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_6: 1797033253
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_7: -650050492
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_8: 2095280705
+      sprite-explosion-animated-film-2d-computer-graphics-sprite-02ba2017f819a5ae8534ac216c364e40_9: 1823725068
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

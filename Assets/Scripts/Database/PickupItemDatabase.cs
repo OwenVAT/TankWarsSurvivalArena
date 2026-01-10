@@ -17,7 +17,7 @@ public class PickupItemDatabase : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
         dictPickupItem = new Dictionary<PickupType, PickupConfig>();
-        foreach (var item in listPickupItem)
+        foreach (var item in Resources.LoadAll<PickupConfig>("/ScriptableObjects/PickupItem"))
         {
             if (!dictPickupItem.ContainsKey(item.pickupType))
             {

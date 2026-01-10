@@ -21,6 +21,7 @@ MonoBehaviour:
   damage: 10
   speed: 10
   lifeTime: 1
+  cooldown: 0.2
   maxDistance: 10
   canPierce: 0
   maxTargetHits: 1

@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
-    private readonly Queue<GameObject> pool = new Queue<GameObject>();
+    private Queue<GameObject> pool = new Queue<GameObject>();
     private GameObject prefab;
     private Transform parentTransform;
 
